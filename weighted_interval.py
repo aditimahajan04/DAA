@@ -42,3 +42,8 @@ intervals = [
     (6, 10, 100)  # Interval 6 with start time 6, finish time 10, and value 100
 ]
 print("Maximum profit:", weighted_interval_scheduling(intervals))  # Print the maximum profit
+
+
+
+#Time complexity:O(n^2)
+#Space complexity:O(n)
