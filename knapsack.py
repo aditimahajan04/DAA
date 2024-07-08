@@ -33,3 +33,6 @@ if __name__ == "__main__":
 
     # Call the knapsack function with initial parameters and print the result.
     print("Maximum value that can be accommodated in the backpack is:", knapsack(items, 0, 0, w, dp))
+
+#Time complexity:O(n*w)
+#Space complexity:O(n*w)
