@@ -56,3 +56,6 @@ if __name__ == "__main__":
     g.tsp(0, 0, 0)
     # Print the minimum cost of the tour
     print(g.min_cost)
+
+#Time complexity:O(n!)
+#Space complexity:O(n)
