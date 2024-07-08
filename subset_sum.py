@@ -29,3 +29,7 @@ if can_form_subset(arr, target):
     print(f"Yes, there is a way to pick some numbers from {arr} that add up to {target}.")
 else:
     print(f"No, it's not possible to pick some numbers from {arr} that add up to {target}.")
+
+
+#Time complexity:O(2^n)
+#Space complexity:O(n)
