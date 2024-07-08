@@ -36,3 +36,6 @@ solutions = solve_n_queens(n)
 print("Number of solutions:", len(solutions))
 for solution in solutions:
     print(solution)
+
+#Time complexity:O(n!)
+#Space complexity:O(n^2)
