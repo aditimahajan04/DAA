@@ -42,11 +42,7 @@ g.add_edge(4, 5, 2)
 
 # Run Bellman-Ford algorithm from vertex 0
 result = g.bellman_ford(0)
-if result:
-    print("Vertex Distance from Source")
-    for i in range(len(result)):
-        print(f"{i}\t\t{result[i]}")
-
+return(result)
 
 #Time complexity:O(V*E)
 #Space complexity:O(V+E)
