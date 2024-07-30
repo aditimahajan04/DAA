@@ -1,41 +1,41 @@
 def solve_n_queens(n):
-    # Function to check if placing a queen at board[row][col] is safe
     def is_safe(board, row, col):
-        # Check each row above the current row
+        # Check if it's safe to place a queen at board[row][col]
         for i in range(row):
-            # Check if there's a queen in the same column or diagonals
             if board[i] == col or \
                board[i] - i == col - row or \
                board[i] + i == col + row:
                 return False
         return True
 
-    # Recursive function to find all solutions starting from a given row
     def solve(board, row):
-        # If all queens are placed, add the current board configuration to results
         if row == n:
             result.append(board[:])
             return
-        
-        # Try placing a queen in each column of the current row
         for col in range(n):
             if is_safe(board, row, col):
-                board[row] = col  # Place queen at board[row][col]
-                solve(board, row + 1)  # Recur to place queen in the next row
-                board[row] = -1  # Backtrack by resetting to -1 after exploring
+                board[row] = col
+                solve(board, row + 1)
+                # Backtrack
+                board[row] = -1
 
-    # Initialize an empty list to store all solutions
+    def print_solution(solution):
+        for i in range(n):
+            row = ['.'] * n
+            row[solution[i]] = 'Q'
+            print(" ".join(row))
+        print("\n")
+
     result = []
-    # Start solving from the first row with an empty board
     solve([-1] * n, 0)
+
+    # Print all solutions
+    for solution in result:
+        print_solution(solution)
+
     return result
 
 # Example usage:
 n = 4
 solutions = solve_n_queens(n)
-print("Number of solutions:", len(solutions))
-for solution in solutions:
-    print(solution)
-
-#Time complexity:O(n!)
-#Space complexity:O(n^2)
+print(f"Total solutions: {len(solutions)}")
