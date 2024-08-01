@@ -1,48 +1,53 @@
 class Graph:
     def __init__(self, vertices):
-        self.vertices = vertices
-        self.edges = []  # Initialize an empty list to store edges
+        self.vertices = vertices  # Number of vertices in the graph
+        self.edges = []  # List to store edges as tuples (u, v, w)
 
     def add_edge(self, u, v, w):
-        self.edges.append((u, v, w))  # Add an edge from vertex u to vertex v with weight w
+        self.edges.append((u - 1, v - 1, w))  # Convert to zero-indexed
 
     def bellman_ford(self, src):
-        # Initialize distances from source to all vertices as infinite
+        # Initialize distances from source to all vertices as infinity
         distances = [float('inf')] * self.vertices
-        distances[src] = 0  # Distance to source itself is 0
+        distances[src] = 0  # Distance from source to itself is 0
 
-        # Relax all edges |V| - 1 times
+        # Relax edges |V| - 1 times
         for i in range(self.vertices - 1):
             for u, v, w in self.edges:
                 if distances[u] != float('inf') and distances[u] + w < distances[v]:
-                    distances[v] = distances[u] + w  # Update distance if a shorter path is found
+                    distances[v] = distances[u] + w
 
-        # Check for negative-weight cycles
+        # Check for negative weight cycles
         for u, v, w in self.edges:
             if distances[u] != float('inf') and distances[u] + w < distances[v]:
-                print("Graph contains negative weight cycle")
+                print("Graph contains negative cycle")
                 return None
 
-        return distances  # Return the list of distances from the source to each vertex
+        return distances
 
 
-# Create a graph with 6 vertices
-g = Graph(6)
-# Add edges with respective weights
-g.add_edge(0, 1, -4)
-g.add_edge(0, 5, -3)
-g.add_edge(1, 3, -1)
-g.add_edge(1, 4, -2)
-g.add_edge(2, 1, 8)
-g.add_edge(2, 5, 3)
-g.add_edge(3, 0, 6)
-g.add_edge(3, 5, 4)
-g.add_edge(4, 2,-3)
-g.add_edge(4, 5, 2)
+if __name__ == "__main__":
+    # Input the number of vertices
+    vertices = int(input("Enter the number of vertices: "))
+    g = Graph(vertices)
 
-# Run Bellman-Ford algorithm from vertex 0
-result = g.bellman_ford(0)
-return(result)
+    # Input the number of edges
+    edges = int(input("Enter the number of edges: "))
+    print("Enter each edge with its weight (format: u v w):")
 
-#Time complexity:O(V*E)
-#Space complexity:O(V+E)
+    for _ in range(edges):
+        u, v, w = map(int, input().split())
+        g.add_edge(u, v, w)
+
+    # Input the source vertex
+    src = int(input("Enter the source vertex: ")) - 1  # Convert to zero-indexed
+
+    # Run the Bellman-Ford algorithm
+    result = g.bellman_ford(src)
+
+    if result:
+        print("Shortest distances from source vertex:")
+        print(" ".join(map(str, result)))
+
+# Time Complexity:O(V*E)
+# Space Complexity:O(V+E)
