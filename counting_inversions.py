@@ -56,9 +56,27 @@ def merge_sort_and_count(arr, l, r):
 
     return inversions
 
-# Example usage
-arr = [5, 8, 3, 9, 0, 2]
-n = len(arr)
-inversion_count = merge_sort_and_count(arr, 0, n - 1)
-print(f"Sorted array: {arr}")
-print(f"Number of inversions: {inversion_count}")
+if __name__ == '__main__':
+    # Read the number of playlists from the user
+    p = int(input("Enter the number of playlists: "))
+
+    for playlist_num in range(1, p + 1):
+        # Read the size of the array from the user
+        n = int(input(f"\nEnter the number of elements in playlist {playlist_num}: "))
+
+        # Read the array elements from the user
+        arr = list(map(int, input(f"Enter the elements of playlist {playlist_num} separated by spaces: ").split()))
+
+        # Ensure that the number of elements entered matches the specified size
+        if len(arr) != n:
+            print("The number of elements entered does not match the specified size.")
+        else:
+            # Call the merge_sort_and_count function to sort the array and count inversions
+            inversions_count = merge_sort_and_count(arr, 0, n - 1)
+
+            # Print the sorted array and the number of inversions
+            print(f"\nSorted array for playlist {playlist_num}: {arr}")
+            print(f"Number of inversions in playlist {playlist_num}: {inversions_count}")
+
+#Time Complexity: O(nlogn)
+#Space Complexity: O(n)
