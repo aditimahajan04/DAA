@@ -1,39 +1,46 @@
 import heapq
-INF = 999999
-V = 5
-G = [
-    [0,4,0,5,0],
-    [4,0,3,1,0],
-    [0,3,0,7,8],
-    [5,1,7,0,3],
-    [0,0,8,3,0]
-]
+
 def prim(graph, V):
     selected = [False] * V
     min_heap = []
-    mst_edges = []
+    distances = [float('inf')] * V
 
+    # Start from vertex 0 (assuming 0-indexed graph)
     selected[0] = True
+    distances[0] = 0
+
     for j in range(V):
         if graph[0][j] != 0:
-            heapq.heappush(min_heap, (graph[0][j], 0, j))  # Corrected: added missing parentheses
+            heapq.heappush(min_heap, (graph[0][j], j))
+            distances[j] = graph[0][j]
 
-    while len(mst_edges) < V - 1:
-        weight, u, v = heapq.heappop(min_heap)
+    while min_heap:
+        weight, v = heapq.heappop(min_heap)
         if selected[v]:
             continue
 
         selected[v] = True
-        mst_edges.append((u, v, weight))
-
         for j in range(V):
-            if not selected[j] and graph[v][j] != 0:
-                heapq.heappush(min_heap, (graph[v][j], v, j))
+            if not selected[j] and graph[v][j] != 0 and graph[v][j] < distances[j]:
+                distances[j] = graph[v][j]
+                heapq.heappush(min_heap, (graph[v][j], j))
 
-    print("Edge: Weight")
-    for u, v, weight in mst_edges:
-        print(f"{u}-{v}: {weight}")
+    return distances
 
-prim(G, V)
+if __name__ == "__main__":
+    V = int(input("Enter the number of vertices: "))
+    E = int(input("Enter the number of edges: "))
+    G = [[0 for _ in range(V)] for _ in range(V)]
 
+    print("Enter each edge with weight (format: u v weight):")
+    for _ in range(E):
+        u, v, weight = map(int, input().split())
+        G[u - 1][v - 1] = weight
+        G[v - 1][u - 1] = weight
 
+    distances = prim(G, V)
+    print("Shortest distances from source vertex:")
+    print(" ".join(map(str, distances)))
+
+#Time Complexity: O(ElogV)
+#Space Complexity: O(V^2)
