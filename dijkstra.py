@@ -30,13 +30,13 @@ if __name__ == "__main__":
     print("Enter each edge with its weight in the format 'start end weight':")
     for _ in range(e):
         u, v, w = map(int, input().split())
-        adj[u].append((v, w))  # Add edge u -> v with weight w
+        adj[u-1].append((v-1, w))  # Add edge u -> v with weight w
 
     # Read the source vertex
-    s = int(input("Enter the source vertex: "))
+    s = int(input("Enter the source vertex: "))-1
 
     solution = Solution()
-    res = solution.dijkstra(v, adj, s)
+    res = solution.dijkstra(len(adj), adj, s)
 
     print("Shortest distances from source vertex:")
     for distance in res:
